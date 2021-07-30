@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import logo from "./logo.svg";
 
-function App() {
+const App = () => {
+  const [todos, setTodos] = useState<string[]>([]);
+  const [todoItem, setTodoItem] = useState("");
+
+  const onRegistrationToDo = (event: any) => {
+    setTodos([...todos, todoItem]);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTodoItem(() => event.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <img src={logo} className="App-logo" alt="logo" />
+      <section>
+        <h1>TODO リスト</h1>
+        <ul>
+          {todos.map((item: string) => {
+            return <li>{item}</li>;
+          })}
+        </ul>
+        <input value={todoItem} onChange={handleChange} />
+        <button onClick={onRegistrationToDo}>登録</button>
+      </section>
     </div>
   );
-}
+};
 
 export default App;
